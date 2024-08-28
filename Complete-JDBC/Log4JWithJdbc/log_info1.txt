@@ -1,0 +1,7 @@
+2023-08-02 17:36:32 INFO com.amarjeet.jdbc.demo.ConnectDb   <clinit> main       0 45 com.amarjeet.jdbc.demo::log4j setup is ready
+2023-08-02 17:36:32 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       8 55 com.amarjeet.jdbc.demo::starting of main method
+2023-08-02 17:36:32 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       22 58 com.amarjeet.jdbc.demo::jdbc driver class loaded
+2023-08-02 17:36:33 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1125 61 com.amarjeet.jdbc.demo::connection created..
+2023-08-02 17:36:33 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1145 69 com.amarjeet.jdbc.demo::one record got inserted into employee table 1
+2023-08-02 17:36:33 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1187 74 com.amarjeet.jdbc.demo::selecting student data
+2023-08-02 17:36:33 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1190 80 com.amarjeet.jdbc.demo::student data featched successfully

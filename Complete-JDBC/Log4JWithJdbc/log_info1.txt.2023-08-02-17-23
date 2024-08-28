@@ -1,0 +1,14 @@
+2023-08-02 17:23:06 INFO com.amarjeet.jdbc.demo.ConnectDb   <clinit> main       0 45 com.amarjeet.jdbc.demo::log4j setup is ready
+2023-08-02 17:23:06 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       5 55 com.amarjeet.jdbc.demo::starting of main method
+2023-08-02 17:23:06 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       19 58 com.amarjeet.jdbc.demo::jdbc driver class loaded
+2023-08-02 17:23:07 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1065 61 com.amarjeet.jdbc.demo::connection created..
+2023-08-02 17:23:07 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1087 69 com.amarjeet.jdbc.demo::one record got inserted into employee table 1
+2023-08-02 17:23:07 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1142 74 com.amarjeet.jdbc.demo::selecting student data
+2023-08-02 17:23:07 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1154 80 com.amarjeet.jdbc.demo::student data featched successfully
+2023-08-02 17:23:33 INFO com.amarjeet.jdbc.demo.ConnectDb   <clinit> main       1 45 com.amarjeet.jdbc.demo::log4j setup is ready
+2023-08-02 17:23:33 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       6 55 com.amarjeet.jdbc.demo::starting of main method
+2023-08-02 17:23:33 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       20 58 com.amarjeet.jdbc.demo::jdbc driver class loaded
+2023-08-02 17:23:34 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1091 61 com.amarjeet.jdbc.demo::connection created..
+2023-08-02 17:23:34 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1116 69 com.amarjeet.jdbc.demo::one record got inserted into employee table 1
+2023-08-02 17:23:34 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1150 74 com.amarjeet.jdbc.demo::selecting student data
+2023-08-02 17:23:34 DEBUG com.amarjeet.jdbc.demo.ConnectDb       main main       1153 80 com.amarjeet.jdbc.demo::student data featched successfully

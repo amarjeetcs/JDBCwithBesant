@@ -1,0 +1,241 @@
+						Log4J
+						-----
+
+What is Logging?
+->The process of keeping track of application flow of the execution called logging.
+->Using logging generated log messages we can find state of the application execution on any given data and 
+  time.
+->Logging keeps track of the components and code involved in the application execution.
+
+What the difference between Logging and Auditing?
+->Logging keeps track of the various components and code that are involved in the execution of the application.
+  Ex-[gets class names, method names, block, modules that are involved in the application execution]
+
+->Auditing keeps track of various avtivities done by enduser while operating the application.
+  Ex-[get the activities like user signedin, opened inbox, replied main and signed out]
+
+Use case of logging:-
+->while performing unit testing if the test result negative we need to dubug the code to know the reason in that process log message are useful for developers.
+->while fixing the bug given by the tester, the developer need to know the state of the application's execution that needs the support of log messages.
+
+Enviornment names:-
+1. Dev 
+2. QA
+3. UAT
+4. Prod
+
+Note:- Dev & QA happen at software company whereas UAT & Prod done at client side.
+
+=>We can do logging in any java application using SOP("-") and System.err.println("-") method but the following limitations are there:-
+->we can write log messages only to console monitor which will be lost after certain amount of time.
+->we can not categorize log messages.
+->we can not write log messages to different destinations like DB,Mail server etc.
+->we can not see old messages after few days/hours(particular date and time log messages).
+->we can not filter log messages while retriving.
+
+To overcome these problem we can use multiple logging activity:-
+->Java assertions from(jdk)
+->java logging api given by java.util.package(jdk)
+->commons logging from (apache)
+->jboss logging from (RedHat)
+->Log4J from (apache) best option to use
+->logback from(adobe)
+
+=>SLF4J(Simple logging facade for java) is not a basic api it is privides abstraction on multiple logging 
+  api/tools/framework and provides unified api for logging by internally using our choice logging api.
+=>SLF4J internally uses Log4j framework.
+
+=>Log4j:-
+  type: logging tool for java
+  version: 1.x(stable), 2.x we will uses 1.x in this session
+  vendor: apache
+
+Log4J advantage:-
+=>Allows to categorize log message while generating log and we can prorities for log messages
+  DEBUG < INFO < WARN < ERROR < FETAL
+
+=>use DEBUG Level for normal confirmation code flow statement of code flow like
+  or This level is used for detailed information, typically useful for debugging purposes. 
+  Debug messages provide insight into the flow of the application, including variable values and method calls.
+  Ex- main(-) method start, main(-) method end, start b.method, end b.method and etc.
+
+=>use INFO Level for important confirmation code flow statement of code flow like
+  Ex- connection stablished with Db s/w, Logging is successful, OTP generaged, Tocken accessed etc.
+
+=>use WARN Level to write log messages for code that should not used/executed but some how used and executed.
+  Ex- especially useful when programer uses deprecated api's/poor api on temporary basis.
+
+=>use ERROR Level to write log messages from known exeception(checked exception) realated catch block like catch(SQLException se),
+  catch(IlligaleArgumentException lae) and etc.
+
+=>use FATAL Level to write log message from unknown exception(unchecked exception) related catch block like catch(Exception e),
+  or catch(Throwable e) and etc.
+
+2. Allows to write/record message to different destination like console,file,db,mail server etc.
+3. Allows to format the log messages using different layouts.
+4. Allows to retrive(ALL AND OFF Added) log message by applying filters.
+   ALL<DEBUG<INFO<WARN<ERROR<FATAL<OFF
+   if the logger level to retrive log message is INFO then we get all log message whose priority level is INFO and higher than (INFO,WARN,ERROR,FATAL).
+   if logger level is off means it is disable
+Note: in real time for every project there is two log files will be maintained
+		a) Common log file(records all log message end to end)
+		b) Exception log file(Record only Error and Fetal level message it is usefiul when project is down)
+
+5. can change the input of the application related log4j either using properties or xml file.
+
+3 Important objects Log4J Programming
+------------------------------------>
+a. Logger Obj
+b. Appender Obj
+c. Layout Obj
+
+Logger Object:
+->enable logging on the given java class
+Logger logger=Logger.getLogger("current java class related java.lang.Class.obj");
+       Ex- Logger logger=Logger.getLogger(BankService.class);
+->Logger is singlton java class.
+
+->useful to generate log message from the app having different priority levels
+       logger.debug("log message");
+       logger.info("log message");
+       logger.warn("log message");
+       logger.error("log message");
+       logger.fetal("log message"); 
+
+->these are all the message will be in the middle of the applicaiton code
+->allows to secify logger level to retrive the log message
+  Ex- logger.serLevel(Level.DEBUG);
+->Both appender and layout object will be added to logger object directly or indirectly
+
+Appender Object:
+--------------->
+->specifies the destination where to record the log message
+Ex- ConsoleAppender, FileAppender, RollingFileAppender, DailyRollingFileAppender, JdbcAppender(takes db s/w), 
+    IMAPAppender(takes mail server)
+
+File appender: to append the log in file called file appender.
+
+Rolling FileAppender:once 30kb size reached then it will create new backup file will 30kb onece it is create 
+	again it will keep rolling with data with 30kb.once maximum backup index reached then it will start 
+	deleting those file.
+
+Daily Rolling File Appender:it is create file on daily,hr,min,month basis.
+
+Note:for all the configuration we need to given to properties file or logger obj or xml file
+
+Layout Object:Given format log messages before giving appender for recording
+Ex: SimpleLayout,HtmlLayout,PatternLayout(customize log message content) and etc.
+->all appender classes implements from org.log4j.Appender(I).
+->all layout classes extends from org.log4j.Layout(C).
+		
+		//Hardcoding 
+Ex:- 		//created layout object
+		//SimpleLayout layout=new SimpleLayout();
+		
+		//html appender object
+		HTMLLayout layout=new HTMLLayout();
+		
+		FileAppender appender = null;
+		try {
+			//passing html layout object to file appender 
+			//here true means it will not override the data it will append next to the data so it is true
+			appender = new FileAppender(layout,"log.html",true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//created appender object having layout object
+		//ConsoleAppender appender=new ConsoleAppender(layout);
+		
+		//add appender object to logger object
+		logger.addAppender(appender);
+		
+		//logger level to retrive log message
+		logger.setLevel(Level.DEBUG);//default would be debug
+		
+
+=>insted of hardcoding log4j setup details in java file we can pass then to log4j setup either from properties file or from xml file.
+Using properties file:
+->any<filename>.properties can be taken in any location.
+->keys are fixed and value can be taken according to application requirments.
+->keys can be gather from log4j documentation.
+->compare to xml file industry prefer using properties file.
+->To load properties file and activate log4j setup we need to use PropertyCongfigurator.configure() method.
+
+Step1:
+->In java class we need to do some configuration to use properties file:
+			try {
+			PropertyConfigurator.configure("src/com/amarjeet/jdbc/commons/log4j.properties");
+			logger.info("com.amarjeet.jdbc.demo::log4j setup is ready");
+			} catch (Exception e) {
+			e.printStackTrace();
+			logger.fatal("com.amarjeet.jdbc.demo::proble while setting up log4j");
+			}
+
+
+Step2:
+Ex- work with sigle file appender properties configuration below:
+    #for Html layout and file appender
+    #specify logger level to retrieve the log message
+    #log4j.rootLogger=DEBUG,R //here R is alias name
+    #specify appender
+    #log4j.appender.R=org.apache.log4j.FileAppender
+    #specify file name
+    #log4j.appender.R.File=D:/info.html
+    #specify layout
+    #log4j.appender.R.layout=org.apache.log4j.HTMLLayout
+
+Ex- work with multiple appenders properties configuration below:
+    
+    #for working with multiple appenders
+    #specify logger level to retrieve the log message
+    #log4j.rootLogger=DEBUG,R,C //here R and C is alias name
+
+
+    #Related to console appender and simple layout
+    #log4j.appender.C=org.apache.log4j.ConsoleAppender
+    #log4j.appender.C.layout=org.apache.log4j.SimpleLayout
+
+    #Related to FileAppender and HTMLLayout
+    #log4j.appender.R=org.apache.log4j.FileAppender
+    #log4j.appender.R.File=D:/info.html
+    #log4j.appender.R.append=true
+    #log4j.appender.R.layout=org.apache.log4j.HTMLLayout
+
+Step3:
+->Run the application and see the result
+
+Ex- working with rolling file appender and pattern layout properties configuration below: 
+    #for working with RollingFileAppender and PatternLayout
+    log4j.rootLogger=DEBUG,R,C
+    log4j.appender.R=org.apache.log4j.RollingFileAppender
+    log4j.appender.R.File=log_info.txt
+    log4j.appender.R.MaxFileSize=10KB
+    log4j.appender.R.MaxBackupIndex=3
+    log4j.appender.R.append=true
+    log4j.appender.R.layout=org.apache.log4j.PatternLayout
+    log4j.appender.R.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %p %25c %10M %-10t %r %L %m%n
+
+
+    #Related to console appender and simple layout
+    log4j.appender.C=org.apache.log4j.ConsoleAppender
+    log4j.appender.C.layout=org.apache.log4j.SimpleLayout
+
+Ex- Working with DailyRollingFileAppender and Pattern layout most frequent use in industry
+   
+
+   log4j.rootLogger=DEBUG,R,C
+   log4j.appender.R=org.apache.log4j.DailyRollingFileAppender
+   log4j.appender.R.File=log_info1.txt
+   log4j.appender.R.append=true
+   log4j.appender.R.datePattern='.'yyyy-MM-dd-HH-mm
+   log4j.appender.R.layout=org.apache.log4j.PatternLayout
+   log4j.appender.R.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %p %25c %10M %-10t %r %L %m%n
+
+
+   #Related to console appender and simple layout
+   log4j.appender.C=org.apache.log4j.ConsoleAppender
+   log4j.appender.C.layout=org.apache.log4j.SimpleLayout
+
+Note: You can take reference of the practical code of the Log4J with Jdbc on my github account where you will
+      found JdbcWithLog4j repository.
